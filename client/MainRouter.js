@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Switch} from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Home from './core/Home'
 import Users from './user/Users'
 import Signup from './user/Signup'
@@ -13,20 +13,24 @@ import Expenses from './expense/Expenses'
 import Reports from './report/Reports'
 
 const MainRouter = () => {
-    return (<div>
-      <Menu/>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/users" component={Users}/>
-        <Route path="/signup" component={Signup}/>
-        <Route path="/signin" component={Signin}/>
-        <PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
-        <Route path="/user/:userId" component={Profile}/>
-        <PrivateRoute path="/expenses/all" component={Expenses}/>
-        <PrivateRoute path="/expenses/new" component={NewExpense}/>
-        <PrivateRoute path="/expenses/reports" component={Reports}/>
-      </Switch>
-    </div>)
+  return (
+    <div>
+      <Menu />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
+
+        {/* Untuk route private, bungkus dengan komponen PrivateRoute sebagai element */}
+        <Route path="/user/edit/:userId" element={<PrivateRoute><EditProfile /></PrivateRoute>} />
+        <Route path="/user/:userId" element={<Profile />} />
+        <Route path="/expenses/all" element={<PrivateRoute><Expenses /></PrivateRoute>} />
+        <Route path="/expenses/new" element={<PrivateRoute><NewExpense /></PrivateRoute>} />
+        <Route path="/expenses/reports" element={<PrivateRoute><Reports /></PrivateRoute>} />
+      </Routes>
+    </div>
+  )
 }
 
 export default MainRouter
